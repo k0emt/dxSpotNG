@@ -13,7 +13,7 @@ public class CommandProcessor {
 			"hd open a HF DX Spot window\n" +
 			"\n" +
 			"2q open a 2M QSO window\n" +
-			"6q open a 6M QSO window\n" +
+			"vq open a VHF QSO window\n" +
 			"hq open a HF QSO window\n" +
 			"If Callsign and Grid are set they are automatically appended.\n" +
 			"\n" +
@@ -106,8 +106,8 @@ public class CommandProcessor {
 			// Launch a 2M DX frame, init & display
 			dxQSOFrame dx2Mspot = new dxQSOFrame(
 					"2M DX", 
-					"http://www.dxworld.com/files/2mprop22.htm", 
-					"http://dxworld.com/cgi-bin/144prop.cgi"
+					"http://dxworld.com/144proplookback.php", 
+					"http://dxworld.com/cgi-bin/2mprop.cgi"
 			);
 			dx2Mspot.set_WebDataFormatter(new WdfPre200604());
 			dx2Mspot.init_pane();
@@ -151,13 +151,13 @@ public class CommandProcessor {
 			sResult = "OK";
 		}
 		
-		if (command.equals("6q"))
+		if (command.equals("vq"))
 		{
-			// Launch a 6M QSO frame, init, set update interval & make visible
+			// Launch a VHF QSO frame, init, set update interval & make visible
 			dxQSOFrame dx6Mqso = new dxQSOFrame(
-					"6M QSO", 
-					"http://dxworld.com/files/magic22.htm", 
-					"http://dxworld.com/cgi-bin/magicband.cgi"
+					"VHF QSO", 
+					"http://dxworld.com/vhfqsolookback.php", 
+					"http://dxworld.com/cgi-bin/vhfqso.cgi"
 			);
 			dx6Mqso.set_WebDataFormatter(new WdfPre200604());
 			dx6Mqso.init_pane();
@@ -167,12 +167,14 @@ public class CommandProcessor {
 			sResult = "OK";
 		}
 		
+		// TODO add VHF Schedule window vs
+		
 		if (command.equals("hd"))
 		{
 			// Launch an HF DX frame, init & display
 			dxQSOFrame dxHFspot = new dxQSOFrame(
 					"HF DX", 
-					"http://www.dxworld.com/files/hfprop22.htm", 
+					"http://dxworld.com/hfproplookback.php", 
 					"http://dxworld.com/cgi-bin/hfprop.cgi"
 			);
 			// "http://www.dxworld.com/files/hfprop22.htm",

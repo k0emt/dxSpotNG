@@ -51,9 +51,9 @@ public class CommandProcessorTests extends TestCase {
 	{
 		assertEquals("OK", _cp.execute("6d"));
 	}
-	public void test6q()
+	public void testvq()
 	{
-		assertEquals("OK", _cp.execute("6q"));
+		assertEquals("OK", _cp.execute("vq"));
 	}
 	public void testhd()
 	{

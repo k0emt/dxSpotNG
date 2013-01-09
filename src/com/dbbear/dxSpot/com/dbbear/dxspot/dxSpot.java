@@ -154,7 +154,7 @@ class dxSpot {
 		JButton cmdSix = new JButton("6M DX");
 		JButton cmdTwo = new JButton("2M DX");
 		JButton cmdHF = new JButton("HF DX");
-		JButton cmdSixQ = new JButton("6M QSO");
+		JButton cmdSixQ = new JButton("VHF QSO");
 		JButton cmdTwoQ = new JButton("2M QSO");
 		JButton cmdHFQ = new JButton("HF QSO");
 		
@@ -216,8 +216,8 @@ class dxSpot {
 				{
 					public void actionPerformed(ActionEvent e)
 					{
-						// Launch a 6M QSO frame, init, set update interval & make visible
-						commandProcessor.execute("6q");
+						// Launch a VHF QSO frame, init, set update interval & make visible
+						commandProcessor.execute("vq");
 					}
 				});
 		cmdTwo.addActionListener(

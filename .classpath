@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="com/dbbear/dxSpot/|com/dbbear/zenTools/|com/javaworld/" kind="src" path="src"/>
+	<classpathentry excluding="com/dbbear/dxSpot/|com/dbbear/zenTools/|com/javaworld/" kind="src" path="tests"/>
 	<classpathentry kind="src" path="src/com/dbbear/dxSpot"/>
 	<classpathentry kind="src" path="src/com/dbbear/zenTools"/>
 	<classpathentry kind="src" path="src/com/javaworld"/>
