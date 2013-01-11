@@ -11,8 +11,8 @@ public class CommandProcessor {
 			"2d open a 2M DX Spot window\n" +
 			"6d open a 6M DX Spot window\n" +
 			"hd open a HF DX Spot window\n" +
+			"ud open a UHF DX Spot window\n" +
 			"\n" +
-			"2q open a 2M QSO window\n" +
 			"vq open a VHF QSO window\n" +
 			"hq open a HF QSO window\n" +
 			"If Callsign and Grid are set they are automatically appended.\n" +
@@ -21,7 +21,6 @@ public class CommandProcessor {
 			"set grid EM38rp - sets the grid location of the operator EM38rp\n" +
 			"\n" +
 			"QRZ callsign - queries QRZ for the given callsign\n" +
-			"dxzone - opens a dxZone irc window\n" +
 			"web dxworld - opens a browser for dxWorld\n" +
 			"web prop - opens a browser with propagation info\n" +
 			"web k0emt - opens a browser for k0emt home page\n" +
@@ -117,18 +116,18 @@ public class CommandProcessor {
 			sResult = "OK";
 		}
 		
-		if (command.equals("2q"))
+		if (command.equals("ud"))
 		{
-			// Launch a 2M QSO frame
-			dxQSOFrame dx2Mqso = new dxQSOFrame(
-					"2M QSO", 
-					"http://www.dxworld.com/files/vhfqso22.htm", 
-					"http://dxworld.com/cgi-bin/vhfqso.cgi"
+			// Launch a UHF DX frame
+			dxQSOFrame dxUhfSpot = new dxQSOFrame(
+					"UHF DX", 
+					"http://dxworld.com/uhflookback.php", 
+					"http://dxworld.com/cgi-bin/uhflog.cgi"
 			);
-			dx2Mqso.set_WebDataFormatter(new WdfPre200604());
-			dx2Mqso.init_pane();
-			dx2Mqso.iUpdateInterval = UPDATE_INTERVAL;
-			dx2Mqso.setVisible(true);
+			dxUhfSpot.set_WebDataFormatter(new WdfPre200604());
+			dxUhfSpot.init_pane();
+			dxUhfSpot.iUpdateInterval = UPDATE_INTERVAL;
+			dxUhfSpot.setVisible(true);
 			
 			sResult = "OK";
 		}
@@ -167,8 +166,6 @@ public class CommandProcessor {
 			sResult = "OK";
 		}
 		
-		// TODO add VHF Schedule window vs
-		
 		if (command.equals("hd"))
 		{
 			// Launch an HF DX frame, init & display
@@ -191,7 +188,7 @@ public class CommandProcessor {
 			// Launch an HF/Generic QSO frame
 			dxQSOFrame dxHFqso = new dxQSOFrame(
 					"HF/General QSO", 
-					"http://www.dxworld.com/files/qso22.htm", 
+					"http://dxworld.com/qsolookback.php", 
 					"http://dxworld.com/cgi-bin/qso.cgi"
 			);
 			dxHFqso.set_WebDataFormatter(new WdfPre200604());

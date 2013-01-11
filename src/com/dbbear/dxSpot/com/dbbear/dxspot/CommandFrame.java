@@ -7,12 +7,10 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import com.javaworld.BrowserControl;
-
 final public class CommandFrame extends JFrame {
 	
 	final static String APP_TITLE = "k0emt's DxCommand - data via dxworld.com";
-	final static String APP_VERSION = "2013.XX";
+	final static String APP_VERSION = "2013.01.10";
 	final static String APP_COPYRIGHT = "Copyright 2000,2006,2013 Bryan Nehl - k0emt, dbBear.com";
 	static final long serialVersionUID = 3;
 	
@@ -77,7 +75,7 @@ final public class CommandFrame extends JFrame {
 		iEntry = 0; // DEV
 		
 		final CommandProcessor cp = new CommandProcessor();
-		final BrowserControl bc = new BrowserControl();
+		final Browser bc = new Browser();
 		cp.setBrowser(bc);
 		
 		// add an action listener to our command line

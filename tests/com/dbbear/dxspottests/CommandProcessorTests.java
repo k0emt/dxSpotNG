@@ -43,9 +43,9 @@ public class CommandProcessorTests extends TestCase {
 	{
 		assertEquals("OK", _cp.execute("2d"));
 	}
-	public void test2q()
+	public void testUhfd()
 	{
-		assertEquals("OK", _cp.execute("2q"));
+		assertEquals("OK", _cp.execute("ud"));
 	}
 	public void test6d()
 	{
@@ -98,12 +98,6 @@ public class CommandProcessorTests extends TestCase {
 	public void testSetGridsquare()
 	{
 		assertEquals("EM38rp", _cp.execute("set grid EM38rp"));
-	}
-	
-	// tests for DxZone IRC interface ---------------------------------------
-	public void testDxZoneIRC()
-	{
-		assertEquals("DxZone IRC", _cp.execute("dxzone"));
 	}
 	
 	// tests that haven't been implement yet, need to figure out how? ------- 

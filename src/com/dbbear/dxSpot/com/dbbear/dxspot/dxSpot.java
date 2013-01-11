@@ -10,14 +10,13 @@ import java.awt.event.*;
 
 import com.dbbear.dxspot.CommandProcessor;
 import com.dbbear.zenTools.zenMsgBox;
-import com.javaworld.BrowserControl;
 
 //main class - init & main menu
 class dxSpot {
 	static User opHam = new User();
 	final static String dxAppTitle = "k0emt's dxSpot - data via dxworld.com";
-	final static String dxVersion = "Release: March 2006 Revamp";
-	final static String dxCopyright = "Copyright 2000,2006 Bryan Nehl - k0emt, dbBear.com";
+	final static String dxVersion = "Release: January 2013";
+	final static String dxCopyright = "Copyright 2000,2006,2013 Bryan Nehl - k0emt, dbBear.com";
 	final static int iUpdateInterval = 300; // update every 5 minutes
 	
 	static private CommandProcessor commandProcessor = new CommandProcessor();
@@ -105,7 +104,7 @@ class dxSpot {
 						new ActionListener() {
 							public void actionPerformed(ActionEvent e)
 							{
-								commandProcessor.setBrowser(new BrowserControl());
+								commandProcessor.setBrowser(new Browser());
 								commandProcessor.execute("web k0emt");
 							}
 						});
@@ -114,7 +113,7 @@ class dxSpot {
 						new ActionListener() {
 							public void actionPerformed(ActionEvent e)
 							{
-								commandProcessor.setBrowser(new BrowserControl());
+								commandProcessor.setBrowser(new Browser());
 								commandProcessor.execute("web dxworld");
 							}
 						});
@@ -155,7 +154,7 @@ class dxSpot {
 		JButton cmdTwo = new JButton("2M DX");
 		JButton cmdHF = new JButton("HF DX");
 		JButton cmdSixQ = new JButton("VHF QSO");
-		JButton cmdTwoQ = new JButton("2M QSO");
+		JButton cmdUhf = new JButton("UHF DX");
 		JButton cmdHFQ = new JButton("HF QSO");
 		
 		// create the panels
@@ -176,7 +175,7 @@ class dxSpot {
 		
 		// QSO buttons
 		pnlButtons.add(cmdSixQ);
-		pnlButtons.add(cmdTwoQ);
+		pnlButtons.add(cmdUhf);
 		pnlButtons.add(cmdHFQ);
 		
 		// put panels into frame
@@ -229,13 +228,12 @@ class dxSpot {
 						commandProcessor.execute("2d");
 					}
 				});
-		cmdTwoQ.addActionListener(
+		cmdUhf.addActionListener(
 				new ActionListener()
 				{
 					public void actionPerformed(ActionEvent e)
 					{
-						// Launch a 2M QSO frame
-						commandProcessor.execute("2q");
+						commandProcessor.execute("ud");
 					}
 				});
 		cmdHF.addActionListener(
