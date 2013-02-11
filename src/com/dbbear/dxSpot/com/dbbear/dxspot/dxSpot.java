@@ -147,8 +147,9 @@ class dxSpot {
 		// create the controls	
 		// text boxes & labels for operators call sign and grid
 		// buttons for 6M, 2M & HF
-		final JTextField txtOperator = new JTextField(commandProcessor.opHam.getCallSign(), 10); // for ARS Op's call sign
-		final JTextField txtGrid = new JTextField(commandProcessor.opHam.getGrid(), 6); // for Operator's grid
+		final JTextField txtOperator = new JTextField(
+				CommandProcessor.opHam.getCallSign(), 10); // for ARS Op's call sign
+		final JTextField txtGrid = new JTextField(CommandProcessor.opHam.getGrid(), 6); // for Operator's grid
 		JLabel lblOpGrid = new JLabel("My ARS/Grid:");
 		JButton cmdSix = new JButton("6M DX");
 		JButton cmdTwo = new JButton("2M DX");
@@ -188,7 +189,7 @@ class dxSpot {
 				{
 					public void actionPerformed(ActionEvent e)
 					{
-						commandProcessor.opHam.setCallSign(txtOperator.getText());
+						CommandProcessor.opHam.setCallSign(txtOperator.getText());
 						zmb("Call Sign Changed: " + txtOperator.getText(), dxAppTitle);
 					}
 				});
@@ -197,7 +198,7 @@ class dxSpot {
 				{
 					public void actionPerformed(ActionEvent e)
 					{
-						commandProcessor.opHam.setGrid(txtGrid.getText());
+						CommandProcessor.opHam.setGrid(txtGrid.getText());
 						zmb("Grid Changed: " + txtGrid.getText(), dxAppTitle);
 					}
 				});

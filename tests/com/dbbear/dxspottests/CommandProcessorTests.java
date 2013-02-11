@@ -68,7 +68,7 @@ public class CommandProcessorTests extends TestCase {
 	public void testWebk0emt() {
 		BrowserMock _bm = new BrowserMock();
 		cmdProc.setBrowser(_bm);
-		assertEquals("http://www.dbbear.com/k0emt/",
+		assertEquals("http://k0emt.dbbear.com/",
 				cmdProc.execute("web k0emt"));
 	}
 

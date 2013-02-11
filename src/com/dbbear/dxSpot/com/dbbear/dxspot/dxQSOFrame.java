@@ -151,8 +151,6 @@ class dxQSOFrame extends JFrame {
 						// need a new implementation that uses the
 						// CommandProcessor and a new ISpotSubmitter class
 
-						CommandProcessor cmdProc = dxSpot.commandProcessor;
-
 						/****
 						 * this is the html used to post a new comment <form
 						 * method="POST"
@@ -184,27 +182,27 @@ class dxQSOFrame extends JFrame {
 							// if the callsign isn't set, or is set to empty
 							// then do nothing
 							// otherwise, append the callsign
-							if ((cmdProc.opHam.getCallSign()
+							if ((CommandProcessor.opHam.getCallSign()
 									.compareTo("MyCall") == 0)
-									|| (cmdProc.opHam.getCallSign().compareTo(
+									|| (CommandProcessor.opHam.getCallSign().compareTo(
 											"") == 0)) {
 								// do nothing, callsign isn't set, or it's set
 								// to blank
 							} else {
 								strSubmit = strSubmit + " de "
-										+ cmdProc.opHam.getCallSign();
+										+ CommandProcessor.opHam.getCallSign();
 							}
 
 							// if the Grid isn't set, or is set to empty, then
 							// do nothing
 							// otherwise, auto-magically append the grid
-							if ((cmdProc.opHam.getGrid().compareTo("MyGrid") == 0)
-									|| (cmdProc.opHam.getGrid().compareTo("") == 0)) {
+							if ((CommandProcessor.opHam.getGrid().compareTo("MyGrid") == 0)
+									|| (CommandProcessor.opHam.getGrid().compareTo("") == 0)) {
 								// do nothing, grid isn't set, or it's set to
 								// blank
 							} else {
 								strSubmit = strSubmit + " in "
-										+ cmdProc.opHam.getGrid();
+										+ CommandProcessor.opHam.getGrid();
 							}
 
 							dsOut.writeBytes(strSubmit);

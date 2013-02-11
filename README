@@ -19,3 +19,4 @@ You can use the main in either of the CommandFrame or dxSpot classes.
 
 TODO:
 read initial settings from a file
+QRZ feature
