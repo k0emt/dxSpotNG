@@ -12,10 +12,10 @@ Frame updates upon QSO or spot submission.
 The user may also manually force an update.
 Can display HF/6 & 2M QSO & DX frames without requiring a bunch of screen real-estate.
 Users grid & callsign are automagically appended to submissions.
-IF they are set other than MyCall and MyGrid.
+setting call sign / grid from command frame
+  IF they are set other than MyCall and MyGrid.
 
 You can use the main in either of the CommandFrame or dxSpot classes.
 
 TODO:
-setting call sign / grid for command frame
 read initial settings from a file

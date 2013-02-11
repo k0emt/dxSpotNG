@@ -13,13 +13,13 @@ import com.dbbear.zenTools.zenMsgBox;
 
 //main class - init & main menu
 class dxSpot {
-	static User opHam = new User();
+	
 	final static String dxAppTitle = "k0emt's dxSpot - data via dxworld.com";
 	final static String dxVersion = "Release: January 2013";
 	final static String dxCopyright = "Copyright 2000,2006,2013 Bryan Nehl - k0emt, dbBear.com";
 	final static int iUpdateInterval = 300; // update every 5 minutes
 	
-	static private CommandProcessor commandProcessor = new CommandProcessor();
+	static protected CommandProcessor commandProcessor = new CommandProcessor();
 		
 	// our main function
 	public static void main(String[] args)
@@ -147,8 +147,8 @@ class dxSpot {
 		// create the controls	
 		// text boxes & labels for operators call sign and grid
 		// buttons for 6M, 2M & HF
-		final JTextField txtOperator = new JTextField(opHam.getCallSign(), 10); // for ARS Op's call sign
-		final JTextField txtGrid = new JTextField(opHam.getGrid(), 6); // for Operator's grid
+		final JTextField txtOperator = new JTextField(commandProcessor.opHam.getCallSign(), 10); // for ARS Op's call sign
+		final JTextField txtGrid = new JTextField(commandProcessor.opHam.getGrid(), 6); // for Operator's grid
 		JLabel lblOpGrid = new JLabel("My ARS/Grid:");
 		JButton cmdSix = new JButton("6M DX");
 		JButton cmdTwo = new JButton("2M DX");
@@ -188,7 +188,7 @@ class dxSpot {
 				{
 					public void actionPerformed(ActionEvent e)
 					{
-						opHam.setCallSign(txtOperator.getText());
+						commandProcessor.opHam.setCallSign(txtOperator.getText());
 						zmb("Call Sign Changed: " + txtOperator.getText(), dxAppTitle);
 					}
 				});
@@ -197,7 +197,7 @@ class dxSpot {
 				{
 					public void actionPerformed(ActionEvent e)
 					{
-						opHam.setGrid(txtGrid.getText());
+						commandProcessor.opHam.setGrid(txtGrid.getText());
 						zmb("Grid Changed: " + txtGrid.getText(), dxAppTitle);
 					}
 				});

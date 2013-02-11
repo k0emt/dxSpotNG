@@ -19,7 +19,7 @@ class dxQSOFrame extends JFrame {
 	String strQSOURL = new String();
 	String strQSOSubmitURL = new String();
 	String strLastRead = new String();
-	int iUpdateInterval; // user should set this in seconds, we multiply by 1000 (ms)
+	int iUpdateInterval; // set this in seconds, we multiply by 1000 (ms)
 
 	private JPanel _panelContent = null;
 	private JPanel _panelInput = null;
@@ -29,7 +29,7 @@ class dxQSOFrame extends JFrame {
 	private JButton _btnUpdate = null;
 	private Timer _timer; // used for auto-updating
 	private IWebDataFormatter _wdf;
-	
+
 	_EventHandler eh = new _EventHandler();
 
 	class _EventHandler implements java.awt.event.ActionListener {
@@ -43,7 +43,7 @@ class dxQSOFrame extends JFrame {
 		super();
 		initialize();
 	}
-	
+
 	public dxQSOFrame(String strTitle, String strURL, String strSubmitURL) {
 		super();
 		initialize();
@@ -87,16 +87,16 @@ class dxQSOFrame extends JFrame {
 			try {
 				_panelContent = new javax.swing.JPanel(new BorderLayout());
 				_panelContent.setName("JFrameContentPane");
-			    
+
 				getJFrameContentPane().add(getJSP_qso(), BorderLayout.CENTER);
-				
+
 				_panelInput = new javax.swing.JPanel(new BorderLayout());
 				_panelInput.setName("JFrameInputPanel");
 				_panelInput.add(getJTFcomment(), BorderLayout.CENTER);
 				_panelInput.add(getJB_update(), BorderLayout.AFTER_LINE_ENDS);
-				
+
 				getJFrameContentPane().add(_panelInput, BorderLayout.SOUTH);
-				
+
 			} catch (java.lang.Throwable ivjExc) {
 				handleException(ivjExc);
 			}
@@ -140,18 +140,25 @@ class dxQSOFrame extends JFrame {
 			try {
 				_txtComment = new javax.swing.JTextField();
 				_txtComment.setName("JTFcomment");
-				_txtComment.setToolTipText("Your comment (call sign & grid appended automagically)");
+				_txtComment
+						.setToolTipText("Your comment (call sign & grid appended automagically)");
 				_txtComment.setBounds(84, 310, 411, 21);
 
 				_txtComment.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 
 						// TODO: this method has changed on some pages
-						// need a new implementation that uses the CommandProcessor and a new ISpotSubmitter class
-						
-						/**** this is the html used to post a new comment
-						 <form method="POST" action="http://dxworld.com/cgi-bin/magicband.cgi">
-						 <input size=50 name="comment"><input type="submit" value="Submit/Refresh"></form>
+						// need a new implementation that uses the
+						// CommandProcessor and a new ISpotSubmitter class
+
+						CommandProcessor cmdProc = dxSpot.commandProcessor;
+
+						/****
+						 * this is the html used to post a new comment <form
+						 * method="POST"
+						 * action="http://dxworld.com/cgi-bin/magicband.cgi">
+						 * <input size=50 name="comment"><input type="submit"
+						 * value="Submit/Refresh"></form>
 						 */
 
 						// open a URL connection to the cgi and initiate output
@@ -174,25 +181,30 @@ class dxQSOFrame extends JFrame {
 									+ URLEncoder.encode(_txtComment.getText(),
 											"US-ASCII"));
 
-							// if the callsign isn't set, or is set to empty then do nothing
+							// if the callsign isn't set, or is set to empty
+							// then do nothing
 							// otherwise, append the callsign
-							if ((dxSpot.opHam.getCallSign().compareTo("MyCall") == 0)
-									|| (dxSpot.opHam.getCallSign()
-											.compareTo("") == 0)) {
-								// do nothing, callsign isn't set, or it's set to blank
+							if ((cmdProc.opHam.getCallSign()
+									.compareTo("MyCall") == 0)
+									|| (cmdProc.opHam.getCallSign().compareTo(
+											"") == 0)) {
+								// do nothing, callsign isn't set, or it's set
+								// to blank
 							} else {
 								strSubmit = strSubmit + " de "
-										+ dxSpot.opHam.getCallSign();
+										+ cmdProc.opHam.getCallSign();
 							}
 
-							// if the Grid isn't set, or is set to empty, then do nothing
+							// if the Grid isn't set, or is set to empty, then
+							// do nothing
 							// otherwise, auto-magically append the grid
-							if ((dxSpot.opHam.getGrid().compareTo("MyGrid") == 0)
-									|| (dxSpot.opHam.getGrid().compareTo("") == 0)) {
-								// do nothing, grid isn't set, or it's set to blank
+							if ((cmdProc.opHam.getGrid().compareTo("MyGrid") == 0)
+									|| (cmdProc.opHam.getGrid().compareTo("") == 0)) {
+								// do nothing, grid isn't set, or it's set to
+								// blank
 							} else {
 								strSubmit = strSubmit + " in "
-										+ dxSpot.opHam.getGrid();
+										+ cmdProc.opHam.getGrid();
 							}
 
 							dsOut.writeBytes(strSubmit);
@@ -200,14 +212,15 @@ class dxQSOFrame extends JFrame {
 							dsOut.close();
 
 							// although I don't do anything with this
-							// the server doesn't accept the post if it can't spit everything back
+							// the server doesn't accept the post if it can't
+							// spit everything back
 							BufferedReader in = new BufferedReader(
 									new InputStreamReader(cnSubmit
 											.getInputStream()));
-							//String inputLine;
+							// String inputLine;
 
 							// see if I can get away with taking just one line
-							//inputLine = 
+							// inputLine =
 							in.readLine();
 							in.close();
 
@@ -239,18 +252,18 @@ class dxQSOFrame extends JFrame {
 	}
 
 	/**
-	 * This populates the qso pane when it's created
-	 * wakeUp() is a variation on this
-	 * could have modified wakeUp() to do this, but went with
-	 * the additional code instead because wakeUp will be called
-	 * repeatedly by the "alarm clock" so don't need the extra conditionals
-	 * Creation date: (8/4/2000 16:28:34)
+	 * This populates the qso pane when it's created wakeUp() is a variation on
+	 * this could have modified wakeUp() to do this, but went with the
+	 * additional code instead because wakeUp will be called repeatedly by the
+	 * "alarm clock" so don't need the extra conditionals Creation date:
+	 * (8/4/2000 16:28:34)
 	 */
 	void init_pane() {
 		// open the QSO URL and update the list box
 		try {
 			URL dxURL = new URL(strQSOURL);
-			BufferedReader in = new BufferedReader(new InputStreamReader(dxURL.openStream()));
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					dxURL.openStream()));
 
 			String strLine;
 			String strOut;
@@ -315,8 +328,10 @@ class dxQSOFrame extends JFrame {
 		return;
 	}
 
-	/* make sure that init_qso_pane() is updated if there are changes in data file format
-	 * it is basically the same as this but it does an insert instead of an append
+	/*
+	 * make sure that init_qso_pane() is updated if there are changes in data
+	 * file format it is basically the same as this but it does an insert
+	 * instead of an append
 	 */
 	void wakeUp() {
 		String strNewLastRead = new String();
@@ -324,7 +339,8 @@ class dxQSOFrame extends JFrame {
 
 		try {
 			URL dxURL = new URL(strQSOURL);
-			BufferedReader in = new BufferedReader(new InputStreamReader(dxURL.openStream()));
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					dxURL.openStream()));
 
 			String strLine;
 			String strOut;
@@ -350,11 +366,11 @@ class dxQSOFrame extends JFrame {
 					// do nothing, end of contents
 				}
 			}
-			
+
 			while (stackNewInfo.empty() == false) {
 				this._txtareaQSO.append((String) stackNewInfo.pop());
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace(); // something went wrong
 		}
