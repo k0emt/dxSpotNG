@@ -27,7 +27,7 @@ public class CommandProcessor {
 					+ "web URL - opens a browser for the given URL\n"
 					+ "about - information about this program\n");
 
-	// DEV need to get or set Application name, version and copyright in shared
+	// TODO need to get or set Application name, version and copyright in shared
 	// area
 	public final static String AboutText = new String(
 			"\nDx Command by k0emt@dbbear.com\n"
@@ -193,6 +193,13 @@ public class CommandProcessor {
 		if (command.startsWith("set grid ")) {
 			opHam.setGrid(command.substring(9));
 			sResult = opHam.getGrid();
+		}
+		
+		if (command.toUpperCase().startsWith("QRZ ")) {
+			String queryUrl = "http://www.wm7d.net/perl/ulsquery.pl?callsign=" +
+		command.substring(command.indexOf(" ") + 1);
+			browser.displayURL(queryUrl);
+			sResult = queryUrl;
 		}
 		
 		// if all else fails, try to run it through the web

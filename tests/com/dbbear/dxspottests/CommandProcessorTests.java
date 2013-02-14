@@ -91,7 +91,20 @@ public class CommandProcessorTests extends TestCase {
 		assertEquals("http://www.qrz.com/",
 				cmdProc.execute("web http://www.qrz.com/"));
 	}
+	
+	public void testQRZ() {
+		BrowserMock _bm = new BrowserMock();
+		cmdProc.setBrowser(_bm);
+		assertEquals("http://www.wm7d.net/perl/ulsquery.pl?callsign=k0emt",
+				cmdProc.execute("QRZ k0emt"));
+	}
 
+	public void testqrz() {
+		BrowserMock _bm = new BrowserMock();
+		cmdProc.setBrowser(_bm);
+		assertEquals("http://www.wm7d.net/perl/ulsquery.pl?callsign=wm7d",
+				cmdProc.execute("qrz wm7d"));
+	}
 	// tests for setting user information -----------------------------------
 	public void testSetCallsign() {
 		cmdProc.execute("set call N0CAL");
