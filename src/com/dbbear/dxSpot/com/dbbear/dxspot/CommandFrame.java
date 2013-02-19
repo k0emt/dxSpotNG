@@ -16,7 +16,7 @@ final public class CommandFrame extends JFrame {
 	private int iEntry;
 	private String sEntry;
 
-	public CommandFrame() {
+	public CommandFrame(String[] args) {
 		super("DxSpot Command " + APP_VERSION);
 		setSize(400, 110); // size of the frame
 		setLocation(100, 100); // location on the screen
@@ -24,7 +24,7 @@ final public class CommandFrame extends JFrame {
 		// command history text area
 		// different font, identify it as history area, don't allow changes
 		final JTextArea jtaCommandHistory = new JTextArea();
-		jtaCommandHistory.setFont(new Font("Serif", Font.PLAIN, 11));
+		jtaCommandHistory.setFont(new Font("Serif", Font.PLAIN, 12));
 		jtaCommandHistory.setText(APP_TITLE + ", " + APP_VERSION + "\n"
 				+ APP_COPYRIGHT + "\n" + "? for help");
 		jtaCommandHistory.setEditable(false);
@@ -48,7 +48,7 @@ final public class CommandFrame extends JFrame {
 
 		// clear history button
 		final JButton btnClear = new JButton("Clear");
-		btnClear.setFont(new Font("Dialog", Font.BOLD, 10));
+		btnClear.setFont(new Font("Dialog", Font.BOLD, 12));
 		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				jtaCommandHistory.setText("");
@@ -70,9 +70,7 @@ final public class CommandFrame extends JFrame {
 
 		iEntry = 0; // DEV
 
-		final CommandProcessor cp = new CommandProcessor();
-		final Browser bc = new Browser();
-		cp.setBrowser(bc);
+		final CommandProcessor cp = new CommandProcessor(args);
 
 		// add an action listener to our command line
 		tfCmdLine.addActionListener(new ActionListener() {
@@ -85,8 +83,8 @@ final public class CommandFrame extends JFrame {
 				// Process the command and include the result
 
 				jtaCommandHistory.append('\n' + String.valueOf(iEntry) + " | "
-						+ String.valueOf(new Date()) + " | "
-						+ cp.execute(sEntry) + " | " + sEntry);
+						+ String.valueOf(new Date()) + " | " + sEntry + " | "
+						+ cp.execute(sEntry));
 
 				jtaCommandHistory.setCaretPosition(jtaCommandHistory
 						.getDocument().getLength());
@@ -98,7 +96,7 @@ final public class CommandFrame extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		JFrame f = new CommandFrame();
+		JFrame f = new CommandFrame(args);
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent we) {
 				System.exit(0);

@@ -1,4 +1,4 @@
-package com.dbbear.dxspottests;
+package com.dbbear.dxspot;
 
 import com.dbbear.dxspot.IBrowser;
 

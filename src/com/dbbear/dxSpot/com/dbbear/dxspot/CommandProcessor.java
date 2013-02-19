@@ -1,5 +1,12 @@
 package com.dbbear.dxspot;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class CommandProcessor {
@@ -7,6 +14,7 @@ public class CommandProcessor {
 
 	public final static String HelpMessageText = new String(
 			"\nhelp or ? - bring up this info\n"
+					+ "whoami displays your name and call\n"
 					+ "exit, quit or bye - Exit the program\n"
 					+ "2d open a 2M DX Spot window\n"
 					+ "6d open a 6M DX Spot window\n"
@@ -66,31 +74,60 @@ public class CommandProcessor {
 					+ "Please send your comments and suggestions to k0emt@dbbear.com");
 
 	protected static User opHam = new User();
-
 	private IBrowser browser;
+	protected String configFileName;
+
+	public CommandProcessor(String[] args) {
+		if (args.length > 0) {
+			configFileName = args[0];
+			List<String> configScript = readScript(configFileName);
+			runScript(configScript);
+		}
+	}
+
+	List<String> readScript(String scriptFileName) {
+		List<String> contents;
+		Path path = Paths.get(scriptFileName);
+		try {
+			contents = Files.readAllLines(path, StandardCharsets.UTF_8);
+		} catch (IOException ioe) {
+			contents = new ArrayList<String>();
+		}
+		return contents;
+	}
+
+	void runScript(List<String> script) {
+		for (String command : script) {
+			execute(command);
+		}
+	}
 
 	public IBrowser getBrowser() {
 		return browser;
 	}
 
-	public void setBrowser(IBrowser _ib) {
-		this.browser = _ib;
+	public void setBrowser(IBrowser iBrowser) {
+		this.browser = iBrowser;
 	}
-	
+
 	public String getOpCallSign() {
 		return opHam.getCallSign();
 	}
-	
+
 	public String getOpGrid() {
 		return opHam.getGrid();
 	}
 
-	public String execute(final String command) {
+	String execute(final String command) {
 		String sResult = new String("help or ? for command information");
 		String sWebResult = "";
 
 		if (command.equals("help") || command.equals("?")) {
 			sResult = HelpMessageText;
+		}
+
+		if (command.equals("whoami")) {
+			sResult = opHam.getCallSign() + " " + opHam.getGrid();
 		}
 
 		if (command.equals("about")) {
@@ -110,6 +147,7 @@ public class CommandProcessor {
 			dx2Mspot.set_WebDataFormatter(new WdfPre200604());
 			dx2Mspot.init_pane();
 			dx2Mspot.iUpdateInterval = UPDATE_INTERVAL;
+			dx2Mspot.setLocation(10, 10);
 			dx2Mspot.setVisible(true);
 
 			sResult = "OK";
@@ -123,13 +161,12 @@ public class CommandProcessor {
 			dxUhfSpot.set_WebDataFormatter(new WdfPre200604());
 			dxUhfSpot.init_pane();
 			dxUhfSpot.iUpdateInterval = UPDATE_INTERVAL;
+			dxUhfSpot.setLocation(15, 20);
 			dxUhfSpot.setVisible(true);
 
 			sResult = "OK";
 		}
 
-		// TODO: the dxworld website has changed the format of the 6M DX data
-		// a new data formatter is needed
 		if (command.equals("6d")) {
 			// Launch a 6M DX frame, init & display
 			dxQSOFrame dx6Mspot = new dxQSOFrame("6M DX",
@@ -138,6 +175,7 @@ public class CommandProcessor {
 			dx6Mspot.set_WebDataFormatter(new Wdf200604());
 			dx6Mspot.init_pane();
 			dx6Mspot.iUpdateInterval = UPDATE_INTERVAL;
+			dx6Mspot.setLocation(20, 30);
 			dx6Mspot.setVisible(true);
 
 			sResult = "OK";
@@ -151,6 +189,7 @@ public class CommandProcessor {
 			dx6Mqso.set_WebDataFormatter(new WdfPre200604());
 			dx6Mqso.init_pane();
 			dx6Mqso.iUpdateInterval = UPDATE_INTERVAL;
+			dx6Mqso.setLocation(25, 40);
 			dx6Mqso.setVisible(true);
 
 			sResult = "OK";
@@ -165,6 +204,7 @@ public class CommandProcessor {
 			dxHFspot.set_WebDataFormatter(new WdfPre200604());
 			dxHFspot.init_pane();
 			dxHFspot.iUpdateInterval = UPDATE_INTERVAL;
+			dxHFspot.setLocation(30, 50);
 			dxHFspot.setVisible(true);
 
 			sResult = "OK";
@@ -180,6 +220,7 @@ public class CommandProcessor {
 			dxHFqso.iUpdateInterval = UPDATE_INTERVAL; // set to the user
 														// specified update
 														// interval
+			dxHFqso.setLocation(35, 60);
 			dxHFqso.setVisible(true);
 
 			sResult = "OK";
@@ -189,19 +230,12 @@ public class CommandProcessor {
 			opHam.setCallSign(command.substring(9));
 			sResult = opHam.getCallSign();
 		}
-		
+
 		if (command.startsWith("set grid ")) {
 			opHam.setGrid(command.substring(9));
 			sResult = opHam.getGrid();
 		}
-		
-		if (command.toUpperCase().startsWith("QRZ ")) {
-			String queryUrl = "http://www.wm7d.net/perl/ulsquery.pl?callsign=" +
-		command.substring(command.indexOf(" ") + 1);
-			browser.displayURL(queryUrl);
-			sResult = queryUrl;
-		}
-		
+
 		// if all else fails, try to run it through the web
 		sWebResult = cmdProcessorWebHelper(command);
 
@@ -212,12 +246,12 @@ public class CommandProcessor {
 		return sResult;
 	}
 
-	protected String cmdProcessorWebHelper(String command) {
+	String cmdProcessorWebHelper(String command) {
 		String sResult = new String("");
-
-		// generic processing
 		StringTokenizer sCmdTok;
 		String sURL;
+
+		initBrowser();
 
 		sCmdTok = new StringTokenizer(command);
 
@@ -248,8 +282,21 @@ public class CommandProcessor {
 					browser.displayURL(sURL);
 				}
 			}
+
+			if (sURL.toUpperCase().equals("QRZ")) {
+				String queryUrl = "http://www.wm7d.net/perl/ulsquery.pl?callsign="
+						+ sCmdTok.nextToken();
+				browser.displayURL(queryUrl);
+				sResult = queryUrl;
+			}
 		}
 
 		return sResult;
+	}
+
+	private void initBrowser() {
+		if (browser == null) {
+			browser = new Browser();
+		}
 	}
 }

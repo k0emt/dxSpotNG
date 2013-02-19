@@ -1,6 +1,4 @@
-package com.dbbear.dxspottests;
-
-import com.dbbear.dxspot.*;
+package com.dbbear.dxspot;
 
 import junit.framework.TestCase;
 

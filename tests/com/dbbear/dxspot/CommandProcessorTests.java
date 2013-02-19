@@ -1,6 +1,7 @@
-package com.dbbear.dxspottests;
+package com.dbbear.dxspot;
 
-import com.dbbear.dxspot.CommandProcessor;
+import java.util.Arrays;
+import java.util.List;
 
 import junit.framework.TestCase;
 
@@ -10,7 +11,8 @@ public class CommandProcessorTests extends TestCase {
 	// set ups and tear downs -----------------------------------------------
 	protected void setUp() throws Exception {
 		super.setUp();
-		cmdProc = new CommandProcessor();
+		String[] emptyArgs = new String[0];
+		cmdProc = new CommandProcessor(emptyArgs);
 	}
 
 	protected void tearDown() throws Exception {
@@ -39,6 +41,9 @@ public class CommandProcessorTests extends TestCase {
 		assertEquals(CommandProcessor.AboutText, cmdProc.execute("about"));
 	}
 
+	public void testWhoAmI() {
+		assertEquals("MyCall MyGrid", cmdProc.execute("whoami"));
+	}
 	// test opening up DX and QSO windows -----------------------------------
 	public void test2d() {
 		assertEquals("OK", cmdProc.execute("2d"));
@@ -68,8 +73,7 @@ public class CommandProcessorTests extends TestCase {
 	public void testWebk0emt() {
 		BrowserMock _bm = new BrowserMock();
 		cmdProc.setBrowser(_bm);
-		assertEquals("http://k0emt.dbbear.com/",
-				cmdProc.execute("web k0emt"));
+		assertEquals("http://k0emt.dbbear.com/", cmdProc.execute("web k0emt"));
 	}
 
 	public void testWebDxWorld() {
@@ -91,7 +95,7 @@ public class CommandProcessorTests extends TestCase {
 		assertEquals("http://www.qrz.com/",
 				cmdProc.execute("web http://www.qrz.com/"));
 	}
-	
+
 	public void testQRZ() {
 		BrowserMock _bm = new BrowserMock();
 		cmdProc.setBrowser(_bm);
@@ -105,6 +109,7 @@ public class CommandProcessorTests extends TestCase {
 		assertEquals("http://www.wm7d.net/perl/ulsquery.pl?callsign=wm7d",
 				cmdProc.execute("qrz wm7d"));
 	}
+
 	// tests for setting user information -----------------------------------
 	public void testSetCallsign() {
 		cmdProc.execute("set call N0CAL");
@@ -116,11 +121,19 @@ public class CommandProcessorTests extends TestCase {
 		assertEquals("EM38rp", cmdProc.getOpGrid());
 	}
 
-	// tests that haven't been implement yet, need to figure out how? -------
-	public void IGNORED_testExitQuitBye() {
-		// DEV how do I test that the application has terminated?
-		assertEquals("WHAT DO I PUT HERE?", cmdProc.execute("exit"));
-		assertEquals("WHAT DO I PUT HERE?", cmdProc.execute("quit"));
-		assertEquals("WHAT DO I PUT HERE?", cmdProc.execute("bye"));
+	// scripted login / configuration tests ---------------------------------
+	public void testFileExists() {
+		String[] args = new String[] { "config" };
+		CommandProcessor cmdProcessor = new CommandProcessor(args);
+		assertEquals(args[0], cmdProcessor.configFileName);
+	}
+
+	public void testConfigScript() {
+		List<String> script = Arrays.asList("set call t3st", "set grid EM48");
+		
+		cmdProc.runScript(script);
+
+		assertEquals("t3st", cmdProc.getOpCallSign());
+		assertEquals("EM48", cmdProc.getOpGrid());
 	}
 }
