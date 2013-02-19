@@ -15,8 +15,8 @@ Users grid & callsign are automagically appended to submissions.
 setting call sign / grid from command frame
   IF they are set other than MyCall and MyGrid.
 QRZ feature when using CommandFrame
+read initial settings from a file -- give config file name on command line
+added whoami command for CommandFrame
 
 You can use the main in either of the CommandFrame or dxSpot classes.
 
-TODO:
-read initial settings from a file
