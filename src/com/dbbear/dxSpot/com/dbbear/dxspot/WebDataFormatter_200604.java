@@ -1,6 +1,6 @@
 package com.dbbear.dxspot;
 
-public class Wdf200604 implements IWebDataFormatter {
+public class WebDataFormatter_200604 implements IWebDataFormatter {
 
 	public String format(String rawdata) {
 		int iPos;
@@ -8,11 +8,10 @@ public class Wdf200604 implements IWebDataFormatter {
 		
 		String formatted;
 		
-		if (rawdata.length() < 15) return "";
-				
-		iPos = rawdata.indexOf('<',19);
+		if (isShortDataLine(rawdata)) return "";
 		
 		// date time and call
+		iPos = rawdata.indexOf('<',19);
 		formatted = rawdata.substring(4,15)
 				+ " "
 				+ rawdata.substring(19,iPos)
@@ -51,5 +50,9 @@ public class Wdf200604 implements IWebDataFormatter {
 		formatted += rawdata.substring(iPos,iEnd) + "\n";;
 		
 		 return formatted;
+	}
+
+	private boolean isShortDataLine(String rawdata) {
+		return rawdata.length() < 15;
 	}
 }

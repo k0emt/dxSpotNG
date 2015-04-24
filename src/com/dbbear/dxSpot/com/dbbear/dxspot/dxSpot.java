@@ -88,8 +88,7 @@ class dxSpot {
 				frmAbout.getContentPane().setLayout(new BorderLayout(5, 5));
 
 				// info to display in the center
-
-				JList jlInfo = new JList(dxSpot.info);
+				JList<String> jlInfo = new JList<String>(dxSpot.info);
 
 				// create the info panel, add the text area
 				JScrollPane pnlInfo = new JScrollPane(jlInfo);

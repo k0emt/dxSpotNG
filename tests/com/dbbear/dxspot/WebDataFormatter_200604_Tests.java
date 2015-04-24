@@ -2,13 +2,13 @@ package com.dbbear.dxspot;
 
 import junit.framework.TestCase;
 
-public class Wdf200604Tests extends TestCase {
+public class WebDataFormatter_200604_Tests extends TestCase {
 
 	private IWebDataFormatter _wdf;
 	
 	protected void setUp() throws Exception {
 		super.setUp();
-		_wdf = new Wdf200604();
+		_wdf = new WebDataFormatter_200604();
 	}
 
 	protected void tearDown() throws Exception {

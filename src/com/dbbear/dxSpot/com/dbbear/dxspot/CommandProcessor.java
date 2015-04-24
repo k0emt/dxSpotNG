@@ -144,7 +144,7 @@ public class CommandProcessor {
 			dxQSOFrame dx2Mspot = new dxQSOFrame("2M DX",
 					"http://dxworld.com/144proplookback.php",
 					"http://dxworld.com/cgi-bin/2mprop.cgi");
-			dx2Mspot.set_WebDataFormatter(new WdfPre200604());
+			dx2Mspot.setWebDataFormatter(new WebDataFormatter_Pre200604());
 			dx2Mspot.init_pane();
 			dx2Mspot.iUpdateInterval = UPDATE_INTERVAL;
 			dx2Mspot.setLocation(10, 10);
@@ -158,7 +158,7 @@ public class CommandProcessor {
 			dxQSOFrame dxUhfSpot = new dxQSOFrame("UHF DX",
 					"http://dxworld.com/uhflookback.php",
 					"http://dxworld.com/cgi-bin/uhflog.cgi");
-			dxUhfSpot.set_WebDataFormatter(new WdfPre200604());
+			dxUhfSpot.setWebDataFormatter(new WebDataFormatter_Pre200604());
 			dxUhfSpot.init_pane();
 			dxUhfSpot.iUpdateInterval = UPDATE_INTERVAL;
 			dxUhfSpot.setLocation(15, 20);
@@ -172,7 +172,7 @@ public class CommandProcessor {
 			dxQSOFrame dx6Mspot = new dxQSOFrame("6M DX",
 					"http://dxworld.com/50proplookback.php",
 					"http://dxworld.com/cgi-bin/50props.cgi");
-			dx6Mspot.set_WebDataFormatter(new Wdf200604());
+			dx6Mspot.setWebDataFormatter(new WebDataFormatter_200604());
 			dx6Mspot.init_pane();
 			dx6Mspot.iUpdateInterval = UPDATE_INTERVAL;
 			dx6Mspot.setLocation(20, 30);
@@ -186,7 +186,7 @@ public class CommandProcessor {
 			dxQSOFrame dx6Mqso = new dxQSOFrame("VHF QSO",
 					"http://dxworld.com/vhfqsolookback.php",
 					"http://dxworld.com/cgi-bin/vhfqso.cgi");
-			dx6Mqso.set_WebDataFormatter(new WdfPre200604());
+			dx6Mqso.setWebDataFormatter(new WebDataFormatter_Pre200604());
 			dx6Mqso.init_pane();
 			dx6Mqso.iUpdateInterval = UPDATE_INTERVAL;
 			dx6Mqso.setLocation(25, 40);
@@ -201,7 +201,7 @@ public class CommandProcessor {
 					"http://dxworld.com/hfproplookback.php",
 					"http://dxworld.com/cgi-bin/hfprop.cgi");
 			// "http://www.dxworld.com/files/hfprop22.htm",
-			dxHFspot.set_WebDataFormatter(new WdfPre200604());
+			dxHFspot.setWebDataFormatter(new WebDataFormatter_Pre200604());
 			dxHFspot.init_pane();
 			dxHFspot.iUpdateInterval = UPDATE_INTERVAL;
 			dxHFspot.setLocation(30, 50);
@@ -215,7 +215,7 @@ public class CommandProcessor {
 			dxQSOFrame dxHFqso = new dxQSOFrame("HF/General QSO",
 					"http://dxworld.com/qsolookback.php",
 					"http://dxworld.com/cgi-bin/qso.cgi");
-			dxHFqso.set_WebDataFormatter(new WdfPre200604());
+			dxHFqso.setWebDataFormatter(new WebDataFormatter_Pre200604());
 			dxHFqso.init_pane();
 			dxHFqso.iUpdateInterval = UPDATE_INTERVAL; // set to the user
 														// specified update

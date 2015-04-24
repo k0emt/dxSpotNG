@@ -1,6 +1,6 @@
 package com.dbbear.dxspot;
 
-public final class WdfPre200604 implements IWebDataFormatter {
+public final class WebDataFormatter_Pre200604 implements IWebDataFormatter {
 
 	public String format(String rawdata) {
 		String strOut;

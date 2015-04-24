@@ -21,18 +21,18 @@ class dxQSOFrame extends JFrame {
 	String strLastRead = new String();
 	int iUpdateInterval; // set this in seconds, we multiply by 1000 (ms)
 
-	private JPanel _panelContent = null;
-	private JPanel _panelInput = null;
-	private JTextField _txtComment = null;
-	private JTextArea _txtareaQSO = null;
-	private JScrollPane _scrollpaneQSO = null;
-	private JButton _btnUpdate = null;
-	private Timer _timer; // used for auto-updating
-	private IWebDataFormatter _wdf;
+	private JPanel panelContent = null;
+	private JPanel panelInput = null;
+	private JTextField txtComment = null;
+	private JTextArea txtareaQSO = null;
+	private JScrollPane scrollpaneQSO = null;
+	private JButton btnUpdate = null;
+	private Timer timer; // used for auto-updating
+	private IWebDataFormatter webDataFormatter;
 
-	_EventHandler eh = new _EventHandler();
+	EventHandler eh = new EventHandler();
 
-	class _EventHandler implements java.awt.event.ActionListener {
+	class EventHandler implements java.awt.event.ActionListener {
 		public void actionPerformed(java.awt.event.ActionEvent e) {
 			if (e.getSource() == dxQSOFrame.this.getJB_update())
 				updateActionEvents();
@@ -54,8 +54,8 @@ class dxQSOFrame extends JFrame {
 		setTitle(strQSOtitle);
 	}
 
-	public void set_WebDataFormatter(IWebDataFormatter _wdf) {
-		this._wdf = _wdf;
+	public void setWebDataFormatter(IWebDataFormatter webDataFormatter) {
+		this.webDataFormatter = webDataFormatter;
 	}
 
 	private void updateActionEvents() {
@@ -67,84 +67,84 @@ class dxQSOFrame extends JFrame {
 	}
 
 	private javax.swing.JButton getJB_update() {
-		if (_btnUpdate == null) {
+		if (btnUpdate == null) {
 			try {
-				_btnUpdate = new javax.swing.JButton();
-				_btnUpdate.setName("JB_update");
-				_btnUpdate.setToolTipText("Query the server for any new info.");
-				_btnUpdate.setText("update");
-				_btnUpdate.setBounds(6, 310, 76, 20);
-				_btnUpdate.setActionCommand("update");
+				btnUpdate = new javax.swing.JButton();
+				btnUpdate.setName("JB_update");
+				btnUpdate.setToolTipText("Query the server for any new info.");
+				btnUpdate.setText("update");
+				btnUpdate.setBounds(6, 310, 76, 20);
+				btnUpdate.setActionCommand("update");
 			} catch (java.lang.Throwable ivjExc) {
 				handleException(ivjExc);
 			}
 		}
-		return _btnUpdate;
+		return btnUpdate;
 	}
 
 	private javax.swing.JPanel getJFrameContentPane() {
-		if (_panelContent == null) {
+		if (panelContent == null) {
 			try {
-				_panelContent = new javax.swing.JPanel(new BorderLayout());
-				_panelContent.setName("JFrameContentPane");
+				panelContent = new javax.swing.JPanel(new BorderLayout());
+				panelContent.setName("JFrameContentPane");
 
 				getJFrameContentPane().add(getJSP_qso(), BorderLayout.CENTER);
 
-				_panelInput = new javax.swing.JPanel(new BorderLayout());
-				_panelInput.setName("JFrameInputPanel");
-				_panelInput.add(getJTFcomment(), BorderLayout.CENTER);
-				_panelInput.add(getJB_update(), BorderLayout.AFTER_LINE_ENDS);
+				panelInput = new javax.swing.JPanel(new BorderLayout());
+				panelInput.setName("JFrameInputPanel");
+				panelInput.add(getJTFcomment(), BorderLayout.CENTER);
+				panelInput.add(getJB_update(), BorderLayout.AFTER_LINE_ENDS);
 
-				getJFrameContentPane().add(_panelInput, BorderLayout.SOUTH);
+				getJFrameContentPane().add(panelInput, BorderLayout.SOUTH);
 
 			} catch (java.lang.Throwable ivjExc) {
 				handleException(ivjExc);
 			}
 		}
-		return _panelContent;
+		return panelContent;
 	}
 
 	private javax.swing.JScrollPane getJSP_qso() {
-		if (_scrollpaneQSO == null) {
+		if (scrollpaneQSO == null) {
 			try {
-				_scrollpaneQSO = new javax.swing.JScrollPane();
-				_scrollpaneQSO.setName("JSP_qso");
-				_scrollpaneQSO.setBounds(5, 5, 490, 301);
+				scrollpaneQSO = new javax.swing.JScrollPane();
+				scrollpaneQSO.setName("JSP_qso");
+				scrollpaneQSO.setBounds(5, 5, 490, 301);
 				getJSP_qso().setViewportView(getJTA_qso());
 			} catch (java.lang.Throwable ivjExc) {
 				handleException(ivjExc);
 			}
 		}
-		return _scrollpaneQSO;
+		return scrollpaneQSO;
 	}
 
 	private javax.swing.JTextArea getJTA_qso() {
-		if (_txtareaQSO == null) {
+		if (txtareaQSO == null) {
 			try {
-				_txtareaQSO = new javax.swing.JTextArea();
-				_txtareaQSO.setName("JTA_qso");
-				_txtareaQSO.setToolTipText("The running QSO");
-				_txtareaQSO.setLineWrap(false);
-				_txtareaQSO.setRows(12);
-				_txtareaQSO.setBounds(10, 10, 490, 173);
-				_txtareaQSO.setEditable(false);
+				txtareaQSO = new javax.swing.JTextArea();
+				txtareaQSO.setName("JTA_qso");
+				txtareaQSO.setToolTipText("The running QSO");
+				txtareaQSO.setLineWrap(false);
+				txtareaQSO.setRows(12);
+				txtareaQSO.setBounds(10, 10, 490, 173);
+				txtareaQSO.setEditable(false);
 			} catch (java.lang.Throwable ivjExc) {
 				handleException(ivjExc);
 			}
 		}
-		return _txtareaQSO;
+		return txtareaQSO;
 	}
 
 	private javax.swing.JTextField getJTFcomment() {
-		if (_txtComment == null) {
+		if (txtComment == null) {
 			try {
-				_txtComment = new javax.swing.JTextField();
-				_txtComment.setName("JTFcomment");
-				_txtComment
+				txtComment = new javax.swing.JTextField();
+				txtComment.setName("JTFcomment");
+				txtComment
 						.setToolTipText("Your comment (call sign & grid appended automagically)");
-				_txtComment.setBounds(84, 310, 411, 21);
+				txtComment.setBounds(84, 310, 411, 21);
 
-				_txtComment.addActionListener(new ActionListener() {
+				txtComment.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 
 						// TODO: this method has changed on some pages
@@ -176,7 +176,7 @@ class dxQSOFrame extends JFrame {
 
 							// build the submission string and send it
 							String strSubmit = new String("comment="
-									+ URLEncoder.encode(_txtComment.getText(),
+									+ URLEncoder.encode(txtComment.getText(),
 											"US-ASCII"));
 
 							// if the callsign isn't set, or is set to empty
@@ -222,7 +222,7 @@ class dxQSOFrame extends JFrame {
 							in.readLine();
 							in.close();
 
-							_txtComment.setText("");
+							txtComment.setText("");
 
 							// also explicitly update the LogPane
 							wakeUp();
@@ -239,7 +239,7 @@ class dxQSOFrame extends JFrame {
 				handleException(ivjExc);
 			}
 		}
-		return _txtComment;
+		return txtComment;
 	}
 
 	private void handleException(java.lang.Throwable exception) {
@@ -270,7 +270,7 @@ class dxQSOFrame extends JFrame {
 
 			while ((strLine = in.readLine()) != null)
 				try {
-					strOut = _wdf.format(strLine);
+					strOut = webDataFormatter.format(strLine);
 
 					// in this case last read is actually the first item read
 					if (bSet == false) {
@@ -278,7 +278,7 @@ class dxQSOFrame extends JFrame {
 						bSet = true;
 					}
 					if (strLine.length() > 0) {
-						_txtareaQSO.insert(strOut, 0);
+						txtareaQSO.insert(strOut, 0);
 					}
 				} catch (Exception e) {
 					// do nothing, end of contents
@@ -290,12 +290,12 @@ class dxQSOFrame extends JFrame {
 
 		// start a timer going that will automatically update the qso pane
 		// waiting a minute between calls
-		_timer = new Timer(iUpdateInterval * 1000, new ActionListener() {
+		timer = new Timer(iUpdateInterval * 1000, new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				wakeUp();
 			}
 		});
-		_timer.start();
+		timer.start();
 	}
 
 	private void initConnections() throws java.lang.Exception {
@@ -346,7 +346,7 @@ class dxQSOFrame extends JFrame {
 			bFirst = true;
 			while ((strLine = in.readLine()) != null) {
 				try {
-					strOut = _wdf.format(strLine);
+					strOut = webDataFormatter.format(strLine);
 
 					if (bFirst == true) {
 						strNewLastRead = strOut;
@@ -366,7 +366,7 @@ class dxQSOFrame extends JFrame {
 			}
 
 			while (stackNewInfo.empty() == false) {
-				this._txtareaQSO.append((String) stackNewInfo.pop());
+				this.txtareaQSO.append((String) stackNewInfo.pop());
 			}
 
 		} catch (Exception e) {
